@@ -1,5 +1,14 @@
-yonch
-tom.tanaka
+PEPSE: Precise Environmental Procedural Simulator Extraordinaire - a java game by Tommy and Yoni
+
+This is a 2D simulator that incorparates an infinite generating world, night and day cycles and trees with falling leaves. 
+There is an avatar that can be controlled using the arrow keys, and it can fly as well!
+
+HOW TO GET IT RUNNING:
+
+HOW TO PLAY:
+
+Use the left and right arrow keys to move horizontally. The space bar is for jumping. When pressing SHIFT+space bar, you will be able to fly! However, this will 
+deplete your energy level (located at the top left corner). To regenerate it, simply have your legs touching a surface.
 
 UML diagrams differences:
 We added a class for the energy level display. We didn't think we'll implement it but when we decided
@@ -21,8 +30,6 @@ calculation for objects out of the Avatar's sight.
 Thanks to the 'reproducible randomness' of the game, based on the fact that its pseudo-randomness is
 based on the same seed, when the character gets back to the same point it should see the same world,
 without noticing the fact that it might have been destroyed from memory and recreated.
-
-Trees package implementation:
 
 Design dilemmas:
 Creating Terrain with ruggedness and smoothness - We didn't use Perlin noise for the terrain.
