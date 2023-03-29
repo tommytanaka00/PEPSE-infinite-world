@@ -1,0 +1,44 @@
+yonch
+tom.tanaka
+
+UML diagrams differences:
+We added a class for the energy level display. We didn't think we'll implement it but when we decided
+to implement, it was natural to add a class for that, as we did in the previous game (Bricker).
+We didn't need neither a camera mover class nor class for the avatar movements since most of it
+can be implemented easily with DanoGameLab functions.
+We didn't implemented random numbers generator because for regular uses we used Java's Random class
+and the smooth random Terrain was built by composition of random sine functions (which were created by
+the seed), and we didn't want to use the perlin noise which is not limited.
+
+
+Infinite World implementation:
+We divided the screen horizontally into framesInWindow frames (virtually). We kept in memory another
+'frame' length of Terrain and Trees in each side.
+Whenever the Avatar crosses a virtual border (horizontal size of the screen from the far current edge)
+We deleted the furthermost frame from the game engine and created another frame in the direction the
+Avatar is going to. The deletion prevents the game from being very heavy and avoiding unnecessary
+calculation for objects out of the Avatar's sight.
+Thanks to the 'reproducible randomness' of the game, based on the fact that its pseudo-randomness is
+based on the same seed, when the character gets back to the same point it should see the same world,
+without noticing the fact that it might have been destroyed from memory and recreated.
+
+Trees package implementation:
+
+Design dilemmas:
+Creating Terrain with ruggedness and smoothness - We didn't use Perlin noise for the terrain.
+In the end, we did not use Perlin Noise at all, because its boundaries were not clear, and we obtained
+better results using composition of sine functions. The randomness comes from the different factors of
+the functions, and due to the use of the seed in its creation, it will be pseudo-random yet will be
+created the same for the same seed.
+
+As part of optimization of minimal calculations, the lower layers of the Terrain are in different layer
+so as to prevent the game engine from calculations of collisions.
+
+In the infinite world, we first thought of creating a whole new class for the frame of the window, so
+as to keep track of all the objects in a frame to create and delete at ease. However, in the end what we
+did was create a hashmap between the x and the terrain connected to it, and another hashmap between x and
+the trees in that x. Then, when deleting a certain frame, we divide that frame into columns and remove
+every terrain and tree in that column (and since we connected the leaves (aka treetop) to the tree, we
+deleted the leaves connected to the tree itself as well). The purpose of storing everything this way was
+to reduce search time during the delete process, and optimize the running time of the game engine for
+best UX of the game.
